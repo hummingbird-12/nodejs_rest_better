@@ -5,11 +5,12 @@ const router = express.Router();
 
 const User = require('../models/User');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
+  // [GET] login page
   if(!req.user) {
     res.redirect('/login');
   }
+  // [GET] user list page
   else {
     let userList = null;
     User.getUsersList(function(err, list) {
@@ -18,7 +19,6 @@ router.get('/', function(req, res, next) {
         res.end();
       }
       else {
-        console.log(list);
         userList = list;
         res.render('index', { user: req.user, userList: userList });
       }

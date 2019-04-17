@@ -13,6 +13,7 @@ function init() {
   }
 }
 
+// returns pool of clients for DB
 function fetchPool() {
   if(!pool) {
     init();

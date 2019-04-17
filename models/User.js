@@ -3,7 +3,9 @@
 const pool = require('../psql').fetchPool();
 
 const User = function(user) {
+  this.id = user.id;
   this.username = user.name;
+  this.email = user.email;
   this.password = user.pass;
 };
 
@@ -33,6 +35,19 @@ User.findByUsername = function(user, result) {
     });
 };
 
+User.findByEmail = function(user, result) {
+  pool.query(
+    'SELECT * FROM users WHERE email=$1',
+    [user.email],
+    (err, res) => {
+      if(err) {
+        console.log("Error while making query.");
+        return result(err, null);
+      }
+      result(null, res.rows[0]);
+    });
+};
+
 User.getUsersList = function(result) {
   pool.query(
     'SELECT * FROM users',
@@ -42,6 +57,20 @@ User.getUsersList = function(result) {
         return result(err, null);
       }
       result(null, res.rows);
+    }
+  );
+};
+
+User.createUser = function(user, result) {
+  pool.query(
+    'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
+    [user.username, user.email, user.password],
+    (err, res) => {
+      if(err) {
+        console.log("Error while making query.");
+        return result(err, null);
+      }
+      result(null, res.rows[0].id);
     }
   );
 };

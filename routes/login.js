@@ -24,4 +24,20 @@ router.route('/')
       res.redirect("/");
   });
 
+// [GET] GitHub OAuth
+router.route('/github')
+  .get(passport.authenticate('github'));
+
+// [GET] callback URI from GitHub OAuth
+router.route('/redirect')
+  .get(
+    passport.authenticate(
+      'github',
+      { failureRedirect: '/failure' }
+    ),
+    function(req, res) {
+      res.redirect('/');
+    }
+  );
+
 module.exports = router;
