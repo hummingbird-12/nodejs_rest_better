@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/public/stylesheets/style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <% if(user) { %>
+        <title>Welcome <%= user.username %></title>
+    <% } %>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<% if(!user) { %>
+    <p>Please <a href="/login">Login</a></p>
+<% } else { %>
+    <div class="card text-center"
+         style="width: 400px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <h1 style="padding: 10px;"><b>User List</b></h1>
+        <hr style="height: 2px; width: 300px; color: grey; background-color: grey; align-self: center;">
+        <ul class="list-group">
+            <% userList.forEach(function(u) { %>
+                <li class="list-group-item"><%- u.username %><br><%- u.email %></li>
+            <% }); %>
+        </ul>
+    </div>
+<% } %>
+</body>
+</html>
