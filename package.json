@@ -20,5 +20,16 @@
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
     "pg": "^7.9.0"
+  },
+  "pkg": {
+    "scripts": [
+      "auths/*.js",
+      "models/*.js",
+      "routes/*.js"
+    ],
+    "assets": [
+      "views/*.ejs",
+      ".env"
+    ]
   }
 }
